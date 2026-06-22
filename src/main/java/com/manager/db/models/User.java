@@ -1,7 +1,7 @@
 package com.manager.db.models;
 
 import com.manager.db.enums.Roles;
-import com.manager.db.enums.Status;
+import com.manager.db.enums.UserStatus;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -33,7 +33,7 @@ public class User {
 
     private Roles rol;
 
-    private Status status;
+    private UserStatus status;
 
     private LocalDate registerDate;
 

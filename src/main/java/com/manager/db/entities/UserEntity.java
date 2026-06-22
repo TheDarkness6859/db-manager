@@ -1,7 +1,7 @@
 package com.manager.db.entities;
 
 import com.manager.db.enums.Roles;
-import com.manager.db.enums.Status;
+import com.manager.db.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,7 +39,7 @@ public class UserEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Status status;
+    private UserStatus status;
 
     private LocalDate registerDate;
 

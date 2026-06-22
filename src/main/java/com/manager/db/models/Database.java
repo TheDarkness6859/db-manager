@@ -1,7 +1,7 @@
 package com.manager.db.models;
 
 import com.manager.db.enums.DatabaseEngine;
-import com.manager.db.enums.Status;
+import com.manager.db.enums.DatabaseStatus;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -35,7 +35,7 @@ public class Database {
     @NotBlank(message = "The port can't be empty")
     private Integer port;
 
-    private Status databaseStatus;
+    private DatabaseStatus databaseStatus;
 
     private LocalDate databaseCreation;
 

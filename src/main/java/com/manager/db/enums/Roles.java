@@ -1,4 +1,4 @@
-package com.manager.db.models.enums;
+package com.manager.db.enums;
 
 public enum Roles {
     ADMIN,

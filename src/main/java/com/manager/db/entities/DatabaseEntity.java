@@ -1,7 +1,7 @@
 package com.manager.db.entities;
 
 import com.manager.db.enums.DatabaseEngine;
-import com.manager.db.enums.Status;
+import com.manager.db.enums.DatabaseStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -40,7 +40,7 @@ public class DatabaseEntity {
     private Integer port;
 
     @Enumerated(EnumType.STRING)
-    private Status databaseStatus;
+    private DatabaseStatus databaseStatus;
 
     private LocalDate databaseCreation;
 
