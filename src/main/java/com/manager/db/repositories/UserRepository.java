@@ -1,4 +1,9 @@
 package com.manager.db.repositories;
 
-public class UserRepository {
+import com.manager.db.entities.UserEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.UUID;
+
+public interface UserRepository extends JpaRepository<UserEntity, UUID> {
 }
