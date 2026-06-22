@@ -35,6 +35,8 @@ public class Database {
     @NotBlank(message = "The port can't be empty")
     private Integer port;
 
+    private String containerId;
+
     private DatabaseStatus databaseStatus;
 
     private LocalDate databaseCreation;
