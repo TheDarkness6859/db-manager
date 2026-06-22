@@ -31,11 +31,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-### Properties ###
-src/main/resources/application.properties
-
-### Database Files ###
-data/
-*.mv.db
-*.trace.db
