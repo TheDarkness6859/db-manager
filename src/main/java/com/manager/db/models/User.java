@@ -1,4 +1,39 @@
 package com.manager.db.models;
 
+import com.manager.db.models.enums.Roles;
+import com.manager.db.models.enums.Status;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
+
+    @NotBlank(message = "The name can't be empty")
+    private String name;
+
+    @NotBlank(message = "The last name can't be empty")
+    private String lastName;
+
+    @NotBlank(message = "The email can't be empty")
+    @Email(message = "Please provide a valid email address")
+    private String email;
+
+    @NotBlank(message = "The password can't be empty")
+    private String password;
+
+    private Roles rol;
+
+    private Status status;
+
+    private LocalDate registerDate;
+
+    private LocalDate lastUpdate;
+
 }
