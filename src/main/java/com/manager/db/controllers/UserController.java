@@ -4,8 +4,10 @@ import com.manager.db.models.Database;
 import com.manager.db.models.User;
 import com.manager.db.services.DatabaseService;
 import com.manager.db.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -36,7 +38,7 @@ public class UserController {
         model.addAttribute("databases", myDbs);
         model.addAttribute("user", userLogged);
 
-        return "templates/private/dashboard";
+        return "private/dashboard";
 
     }
 
@@ -45,12 +47,20 @@ public class UserController {
 
         model.addAttribute("database", new Database());
 
-        return "templates/private/create-db";
+        return "private/create-db";
 
     }
 
     @PostMapping("/new")
-    public String createDatabase(@ModelAttribute("database") Database database, Principal principal, Model model) {
+    public String createDatabase(@Valid @ModelAttribute("database") Database database
+            , BindingResult bindingResult
+            , Principal principal
+            , Model model) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("error", "Invalid fields. Please check your data type allocations.");
+            return "private/create-db";
+        }
 
         try {
 
@@ -66,7 +76,7 @@ public class UserController {
 
             model.addAttribute("error", e.getMessage());
 
-            return "templates/private/create-db";
+            return "private/create-db";
 
         }
     }

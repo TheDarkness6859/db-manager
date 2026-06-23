@@ -4,8 +4,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
+import java.util.Objects;
 
 @Configuration
 @EnableWebSecurity
@@ -23,12 +28,22 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
 
-                .formLogin(form ->
-                        form.loginPage("/auth/login")
-                                .loginProcessingUrl("/auth/login")
-                                .defaultSuccessUrl("/dashboard", true)
-                                .failureUrl("/auth/login?error=true")
-                                .permitAll()
+                .formLogin(form -> form
+                        .loginPage("/auth/login")
+                        .loginProcessingUrl("/auth/login")
+                        .successHandler((request, response, authentication) -> {
+                            var roles = authentication.getAuthorities();
+                            boolean isAdmin = roles.stream()
+                                    .anyMatch(auth -> Objects.equals(auth.getAuthority(), "ROLE_ADMIN"));
+
+                            if (isAdmin) {
+                                response.sendRedirect("/admin/users");
+                            } else {
+                                response.sendRedirect("/dashboard");
+                            }
+                        })
+                        .failureUrl("/auth/login?error=true")
+                        .permitAll()
                 )
 
                 .logout(logout ->
@@ -39,8 +54,7 @@ public class SecurityConfig {
                                 .permitAll()
                 )
 
-                .csrf(csrf ->
-                        csrf.ignoringRequestMatchers("/h2-console/**")
+                .csrf(AbstractHttpConfigurer::disable
                 )
                 .headers(headers ->
                         headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)
@@ -48,6 +62,11 @@ public class SecurityConfig {
 
         return http.build();
 
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
 }

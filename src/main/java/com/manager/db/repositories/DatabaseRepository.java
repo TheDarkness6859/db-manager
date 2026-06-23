@@ -13,5 +13,5 @@ public interface DatabaseRepository extends JpaRepository<DatabaseEntity, UUID> 
 
     DatabaseEntity findByContainerId (String id);
 
-    boolean existsByPortAndStatus (Integer port, DatabaseStatus status);
+    boolean existsByPortAndDatabaseStatus (Integer port, DatabaseStatus status);
 }

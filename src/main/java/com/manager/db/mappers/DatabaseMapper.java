@@ -2,7 +2,9 @@ package com.manager.db.mappers;
 
 import com.manager.db.entities.DatabaseEntity;
 import com.manager.db.models.Database;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DatabaseMapper {
 
     private final UserMapper mapper;
@@ -18,7 +20,7 @@ public class DatabaseMapper {
         domain.setId(entity.getId());
         domain.setName(entity.getName());
         domain.setDescription(entity.getDescription());
-        domain.setDatabase(entity.getDatabaseEngine());
+        domain.setDatabaseEngine(entity.getDatabaseEngine());
         domain.setUserDatabase(entity.getUserDatabase());
         domain.setPasswordDatabase(entity.getPasswordDatabase());
         domain.setPort(entity.getPort());
@@ -39,7 +41,7 @@ public class DatabaseMapper {
         entity.setId(domain.getId());
         entity.setName(domain.getName());
         entity.setDescription(domain.getDescription());
-        entity.setDatabaseEngine(domain.getDatabase());
+        entity.setDatabaseEngine(domain.getDatabaseEngine());
         entity.setUserDatabase(domain.getUserDatabase());
         entity.setPasswordDatabase(domain.getPasswordDatabase());
         entity.setPort(domain.getPort());
