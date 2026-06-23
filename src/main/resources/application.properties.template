@@ -1,0 +1,45 @@
+
+#Database connection:
+
+spring.datasource.url=
+
+spring.datasource.driverClassName=
+
+spring.datasource.username=
+spring.datasource.password=
+
+#Hibernate:
+
+spring.jpa.database-platform=
+
+spring.jpa.hibernate.ddl-auto=
+
+spring.jpa.show-sql=
+spring.jpa.properties.hibernate.format_sql=
+
+#H2 view database:
+
+spring.h2.console.enabled=
+
+spring.h2.console.path=
+
+spring.h2.console.settings.web-allow-others=
+
+#Email sender:
+
+spring.mail.host=
+spring.mail.port=
+spring.mail.username=
+
+spring.mail.password=
+
+#Email security:
+spring.mail.properties.mail.smtp.auth=
+spring.mail.properties.mail.smtp.starttls.enable=
+spring.mail.properties.mail.smtp.starttls.required=
+spring.mail.properties.mail.smtp.ssl.protocols=
+
+#Waiting Time:
+spring.mail.properties.mail.smtp.connectiontimeout=
+spring.mail.properties.mail.smtp.timeout=
+spring.mail.properties.mail.smtp.writetimeout=
