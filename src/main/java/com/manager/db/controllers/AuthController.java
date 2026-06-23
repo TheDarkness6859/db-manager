@@ -28,7 +28,7 @@ public class AuthController {
             model.addAttribute("logoutMessage", "You have been successfully logged out.");
         }
 
-        return "public/login";
+        return "templates/public/login";
 
     }
 
@@ -37,7 +37,7 @@ public class AuthController {
 
         model.addAttribute("user", new User());
 
-        return "public/register";
+        return "templates/public/register";
 
     }
 
@@ -52,7 +52,7 @@ public class AuthController {
         }catch (Exception e){
 
             model.addAttribute("error", e.getMessage());
-            return "public/register";
+            return "templates/public/register";
 
         }
 
