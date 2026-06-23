@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - CrudZaso</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0A0A0C; }
+    </style>
+</head>
+<body class="text-gray-100 min-h-screen">
+<nav class="bg-[#121214] border-b border-gray-800 px-6 py-4 flex justify-between items-center">
+    <div class="flex items-center space-x-3">
+        <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-500">CrudZaso</span>
+        <span class="bg-gray-800 text-gray-400 text-xs px-2 py-0.5 rounded uppercase tracking-widest font-mono">User Panel</span>
+    </div>
+    <div class="flex items-center space-x-6">
+        <span class="text-sm text-gray-400" th:text="${user.email}">user@mail.com</span>
+        <form th:action="@{/logout}" method="POST">
+            <button type="submit" class="text-sm bg-red-950/40 border border-red-900/60 hover:bg-red-900 text-red-400 px-3 py-1.5 rounded-lg transition-colors">
+                Logout
+            </button>
+        </form>
+    </div>
+</nav>
+
+<main class="max-w-6xl mx-auto p-6 mt-8">
+    <div class="flex justify-between items-center mb-8">
+        <div>
+            <h1 class="text-2xl font-bold">Welcome, <span th:text="${user.name}">Developer</span>!</h1>
+            <p class="text-gray-400 text-sm mt-1">Deploy, track and monitor isolated container engines</p>
+        </div>
+        <a th:href="@{/dashboard/new}"
+           class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors shadow-lg shadow-blue-600/20">
+            + Launch New Database
+        </a>
+    </div>
+
+    <div th:if="${param.success}" class="bg-green-950/40 border border-green-800 text-green-400 p-4 rounded-xl text-sm mb-8">
+        <span th:if="${param.success[0] == 'created'}">🚀 Infrastructure initialized successfully. Credentials sent to your Gmail inbox!</span>
+        <span th:if="${param.success[0] == 'archived'}">🗄️ Container destroyed and database record permanently archived.</span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6" th:if="${!databases.isEmpty()}">
+        <div th:each="db : ${databases}" class="bg-[#121214] border border-gray-800 rounded-xl p-5 relative overflow-hidden flex flex-col justify-between">
+            <div>
+                <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-mono px-2 py-1 bg-gray-800 text-gray-300 rounded font-bold uppercase tracking-wider"
+                              th:text="${db.databaseEngine}">MYSQL</span>
+
+                    <span class="text-xs px-2 py-0.5 rounded font-medium"
+                          th:text="${db.databaseStatus}"
+                          th:classappend="${db.databaseStatus.name() == 'RUNNING' ? 'bg-green-950 text-green-400 border border-green-800' : 'bg-amber-950 text-amber-400 border border-amber-800'}">
+                        </span>
+                </div>
+
+                <h3 class="text-lg font-bold text-white mb-2" th:text="${db.name}">production_db</h3>
+
+                <div class="space-y-1.5 text-sm font-mono text-gray-400 bg-[#18181C] p-3 rounded-lg border border-gray-800/50">
+                    <p><span class="text-gray-600">Port:</span> <span class="text-blue-400 font-bold" th:text="${db.port}">3306</span></p>
+                    <p><span class="text-gray-600">User:</span> <span th:text="${db.userDatabase}">root</span></p>
+                    <p><span class="text-gray-600">Host:</span> localhost</p>
+                </div>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-800/60 flex justify-end">
+                <form th:if="${db.databaseStatus.name() != 'ARCHIVED'}"
+                      th:action="@{/dashboard/{id}/archive(id=${db.id})}" method="POST"
+                      onsubmit="return confirm('Are you sure you want to completely destroy this container? This action is irreversible.');">
+                    <button type="submit" class="text-xs bg-red-950/20 border border-red-900/40 text-red-400 hover:bg-red-900 hover:text-white px-3 py-1.5 rounded transition-all">
+                        Archive & Destroy
+                    </button>
+                </form>
+                <span th:if="${db.databaseStatus.name() == 'ARCHIVED'}" class="text-xs text-gray-500 italic font-mono">
+                        Archived Instance
+                    </span>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${databases.isEmpty()}" class="border border-dashed border-gray-800 text-center py-16 rounded-xl">
+        <p class="text-gray-500 font-medium">No database containers deployed yet.</p>
+        <p class="text-gray-600 text-sm mt-1">Spin up isolated environments in seconds.</p>
+    </div>
+</main>
+</body>
+</html>
