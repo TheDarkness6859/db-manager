@@ -2,7 +2,9 @@ package com.manager.db.mappers;
 
 import com.manager.db.entities.UserEntity;
 import com.manager.db.models.User;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserMapper {
 
     public User toDomain (UserEntity entity) {

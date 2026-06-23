@@ -24,7 +24,7 @@ public class Database {
     private String description;
 
     @NotNull(message = "The database need have a engine")
-    private DatabaseEngine database;
+    private DatabaseEngine databaseEngine;
 
     @NotBlank(message = "The database need have a user connection")
     private String userDatabase;
@@ -32,7 +32,7 @@ public class Database {
     @NotBlank(message = "The database need have password")
     private String passwordDatabase;
 
-    @NotBlank(message = "The port can't be empty")
+    @NotNull(message = "The port can't be empty")
     private Integer port;
 
     private String containerId;

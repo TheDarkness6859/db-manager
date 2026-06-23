@@ -37,12 +37,12 @@
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <label class="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Database Engine</label>
-                    <select th:field="*{databaseEngine}" required
-                            class="w-full bg-[#18181C] border border-gray-800 rounded-lg px-3 py-2 text-gray-200 focus:outline-none focus:border-blue-500">
-                        <option value="POSTGRESQL">PostgreSQL (Alpine)</option>
-                        <option value="MYSQL">MySQL (Official 8.0)</option>
-                        <option value="MONGODB">MongoDB (NoSQL 7.0)</option>
-                    </select>
+                        <select th:field="*{databaseEngine}" required
+                                class="w-full bg-[#18181C] border border-gray-800 rounded-lg px-3 py-2 text-gray-200 focus:outline-none focus:border-blue-500">
+                            <option value="PostgreSQL">PostgreSQL (Alpine)</option>
+                            <option value="MySQL">MySQL (Official 8.0)</option>
+                            <option value="MongoDB">MongoDB (NoSQL 7.0)</option>
+                        </select>
                 </div>
                 <div>
                     <label class="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Host Outward Port</label>

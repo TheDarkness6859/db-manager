@@ -10,7 +10,6 @@ import com.manager.db.enums.DatabaseStatus;
 import com.manager.db.mappers.DatabaseMapper;
 import com.manager.db.models.Database;
 import com.manager.db.repositories.DatabaseRepository;
-import com.manager.db.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,8 +26,7 @@ public class DatabaseService {
     DatabaseService (DatabaseRepository repository,
                      DockerClient dockerClient,
                      EmailService sender,
-                     DatabaseMapper mapper,
-                     UserRepository userRepository){
+                     DatabaseMapper mapper){
 
         this.repository = repository;
         this.dockerClient = dockerClient;
@@ -76,7 +74,7 @@ public class DatabaseService {
             throw new RuntimeException("Maximum limit of 3 active databases reached for this user");
         }
 
-        boolean portExists = repository.existsByPortAndStatus(database.getPort(), DatabaseStatus.RUNNING);
+        boolean portExists = repository.existsByPortAndDatabaseStatus(database.getPort(), DatabaseStatus.RUNNING);
 
         if (portExists) {
             throw new RuntimeException("The selected port " + database.getPort() + " is already in use by another active container");
@@ -166,7 +164,7 @@ public class DatabaseService {
 
         if (!entity.getPort().equals(database.getPort())) {
 
-            boolean portExists = repository.existsByPortAndStatus(database.getPort(), DatabaseStatus.RUNNING);
+            boolean portExists = repository.existsByPortAndDatabaseStatus(database.getPort(), DatabaseStatus.RUNNING);
 
             if (portExists) {
 
